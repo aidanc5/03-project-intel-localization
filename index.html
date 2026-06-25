@@ -94,6 +94,9 @@
           </label>
           <input type="email" id="email" class="form-control" required>
         </div>
+        <button type="submit" id="subscribeButton" class="btn btn-primary">
+          Subscribe
+        </button>
       </form>
     </section>
 
@@ -280,6 +283,7 @@ const languageOptionEn = document.querySelector("#languageSelect option[value='e
 const languageOptionAr = document.querySelector("#languageSelect option[value='ar']");
 const subscribeHeading = document.querySelector("section.container.my-5 h2");
 const emailLabel = document.querySelector("label[for='email']");
+const subscribeButton = document.getElementById("subscribeButton");
 const faqHeading = document.querySelectorAll("section.container.my-5 h2")[1];
 
 const innovationHeading = document.getElementById("innovationHeading");
@@ -314,6 +318,7 @@ const translations = {
     languageOptionAr: "Arabic (RTL)",
     subscribeHeading: "Subscribe for Intel Updates",
     emailLabel: "Email Address",
+    subscribeButtonText: "Subscribe",
     faqHeading: "Frequently Asked Questions",
     faqQuestionOne: "What is Intel's RISE Strategy?",
     faqAnswerOne: "Intel's Responsible, Inclusive, Sustainable and Enabling initiative.",
@@ -347,6 +352,7 @@ const translations = {
     languageOptionAr: "العربية (من اليمين إلى اليسار)",
     subscribeHeading: "اشترك للحصول على تحديثات إنتل",
     emailLabel: "عنوان البريد الإلكتروني",
+    subscribeButtonText: "اشترك",
     faqHeading: "الأسئلة الشائعة",
     faqQuestionOne: "ما هي استراتيجية RISE الخاصة بشركة إنتل؟",
     faqAnswerOne: "مبادرة إنتل المسؤولة والشاملة والمستدامة والتمكينية.",
@@ -389,6 +395,7 @@ function applyLanguage(lang) {
   languageOptionAr.textContent = t.languageOptionAr;
   subscribeHeading.textContent = t.subscribeHeading;
   emailLabel.textContent = t.emailLabel;
+  subscribeButton.textContent = t.subscribeButtonText;
   faqHeading.textContent = t.faqHeading;
   faqQuestionOne.textContent = t.faqQuestionOne;
   faqAnswerOne.textContent = t.faqAnswerOne;
