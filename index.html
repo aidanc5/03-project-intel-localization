@@ -18,14 +18,14 @@
       <img src="img/intel-header-logo.svg" alt="Intel Logo" class="site-logo" />
       <div class="header-text">
         <!-- Main Heading -->
-        <h1>
-          Sustainability Through the Ages
-        </h1>
+        <h1 id="mainTitle">
+  Sustainability Through the Ages
+</h1>
 
         <!-- Subheading / Description -->
-        <p class="subhead">
+        <p class="subhead" id="subhead">
           Explore Intel's journey through time, discovering how our commitment
-          to innovation has shaped a more sustainable future for technology 
+          to innovation has shaped a more sustainable future for technology
           and our planet.
         </p>
       </div>
@@ -45,40 +45,40 @@
     <section class="container my-5">
       <div class="row text-center">
         <div class="col-md-4 mb-4">
-          <h3>
-            <i class="bi bi-cpu"></i>
-            Innovation
-          </h3>
+          <h3 id="innovationHeading">
+  <i class="bi bi-cpu"></i>
+  Innovation
+</h3>
           <p>
             Intel continues to innovate through sustainable technology.
           </p>
-          <button class="btn btn-primary">
+          <button id="btn2" class="btn btn-primary">
             Learn More
           </button>
         </div>
 
         <div class="col-md-4 mb-4">
-          <h3>
+          <h3 id="environmentHeading">
             <i class="bi bi-globe"></i>
             Environment
           </h3>
           <p>
             Renewable energy and water conservation initiatives.
           </p>
-          <button class="btn btn-primary">
+          <button id="btn1" class="btn btn-primary">
             Learn More
           </button>
         </div>
 
         <div class="col-md-4 mb-4">
-          <h3>
+          <h3 id="communityHeading">
             <i class="bi bi-people"></i>
             Community
           </h3>
           <p>
             Supporting communities through responsible business practices.
           </p>
-          <button class="btn btn-primary">
+          <button id="btn3" class="btn btn-primary">
             Learn More
           </button>
         </div>
@@ -271,18 +271,160 @@
 </main>
 
 <script>
- const title = document.querySelector("h1");
+const languageSelect = document.getElementById("languageSelect");
 
-languageSelect.addEventListener("change", function() {
+const mainTitle = document.getElementById("mainTitle");
+const subhead = document.getElementById("subhead");
+const languageLabel = document.querySelector("label[for='languageSelect']");
+const languageOptionEn = document.querySelector("#languageSelect option[value='en']");
+const languageOptionAr = document.querySelector("#languageSelect option[value='ar']");
+const subscribeHeading = document.querySelector("section.container.my-5 h2");
+const emailLabel = document.querySelector("label[for='email']");
+const faqHeading = document.querySelectorAll("section.container.my-5 h2")[1];
 
-    if (this.value === "ar") {
-        document.documentElement.dir = "rtl";
-        title.textContent = "الاستدامة عبر العصور";
-    } else {
-        document.documentElement.dir = "ltr";
-        title.textContent = "Sustainability Through the Ages";
+const innovationHeading = document.getElementById("innovationHeading");
+const environmentHeading = document.getElementById("environmentHeading");
+const communityHeading = document.getElementById("communityHeading");
+
+const introText = document.querySelectorAll(".col-md-4 p")[0];
+const environmentText = document.querySelectorAll(".col-md-4 p")[1];
+const communityText = document.querySelectorAll(".col-md-4 p")[2];
+
+const faqQuestionOne = document.querySelector('[data-bs-target="#one"]');
+const faqAnswerOne = document.querySelector("#one .accordion-body");
+const faqQuestionTwo = document.querySelector('[data-bs-target="#two"]');
+const faqAnswerTwo = document.querySelector("#two .accordion-body");
+let footerText = null;
+
+const btn1 = document.getElementById("btn1");
+const btn2 = document.getElementById("btn2");
+const btn3 = document.getElementById("btn3");
+
+const timelineCards = document.querySelectorAll(".timeline .card");
+
+const translations = {
+  en: {
+    mainTitle: "Sustainability Through the Ages",
+    subhead: "Explore Intel's journey through time, discovering how our commitment to innovation has shaped a more sustainable future for technology and our planet.",
+    innovationHeading: "Innovation",
+    environmentHeading: "Environment",
+    communityHeading: "Community",
+    languageLabel: "Choose Language:",
+    languageOptionEn: "English",
+    languageOptionAr: "Arabic (RTL)",
+    subscribeHeading: "Subscribe for Intel Updates",
+    emailLabel: "Email Address",
+    faqHeading: "Frequently Asked Questions",
+    faqQuestionOne: "What is Intel's RISE Strategy?",
+    faqAnswerOne: "Intel's Responsible, Inclusive, Sustainable and Enabling initiative.",
+    faqQuestionTwo: "What is Intel's Net Zero Goal?",
+    faqAnswerTwo: "Intel aims for net-zero greenhouse gas emissions by 2040.",
+    introText: "Intel continues to innovate through sustainable technology.",
+    environmentText: "Renewable energy and water conservation initiatives.",
+    communityText: "Supporting communities through responsible business practices.",
+    buttonText: "Learn More",
+    footerText: "© 2026 Intel Sustainability Localization Project",
+    cards: [
+      { year: "1968", heading: "Intel Founded", text: "Robert Noyce and Gordon Moore rename the newly formed company NM Electronics to Intel Corporation, laying the foundation for decades of technological innovation." },
+      { year: "1971", heading: "First Microprocessor", text: "Intel debuts the 4004, the world's first commercial microprocessor, igniting the microprocessor revolution and propelling the future of computing devices." },
+      { year: "1978", heading: "8086 Processor", text: "Launch of the 8086 processor, establishing the x86 architecture that drives countless PCs and servers in the modern era." },
+      { year: "1985", heading: "386 Processor", text: "Intel introduces the 386 processor with 32-bit architecture, ushering in a new era of performance and multitasking for personal computers." },
+      { year: "2006", heading: "Peak GHG Emissions", text: "This year marks Intel's highest annual greenhouse gas emissions for operations. Over subsequent years, Intel invests heavily in chemical abatement, renewable energy, and energy-efficient manufacturing to reverse this trend." },
+      { year: "2020", heading: "RISE Strategy", text: "Intel launches its RISE (Responsible, Inclusive, Sustainable, Enabling) strategy and 2030 goals, aiming to drive industry-wide progress on climate action, water stewardship, and waste reduction." },
+      { year: "2022", heading: "Net-Zero By 2040", text: "Intel announces its commitment to achieve net-zero greenhouse gas emissions (Scope 1 and 2) across its global operations by 2040, building on years of environmental initiatives." },
+      { year: "2023", heading: "Renewable Electricity", text: "The company achieves 99% renewable electricity usage worldwide, helping to drastically lower carbon emissions and driving progress toward Intel's long-term sustainability goals." },
+      { year: "2024", heading: "Sustainability Summit", text: "Intel hosts its first Sustainability Summit, uniting suppliers, government officials, and industry leaders to collaborate on next-generation sustainable semiconductor manufacturing." }
+    ]
+  },
+  ar: {
+    mainTitle: "الاستدامة عبر العصور",
+    subhead: "استكشف رحلة إنتل عبر الزمن واكتشف كيف ساهم الابتكار في تشكيل مستقبل أكثر استدامة.",
+    innovationHeading: "الابتكار",
+    environmentHeading: "البيئة",
+    communityHeading: "المجتمع",
+    languageLabel: "اختر اللغة:",
+    languageOptionEn: "الإنجليزية",
+    languageOptionAr: "العربية (من اليمين إلى اليسار)",
+    subscribeHeading: "اشترك للحصول على تحديثات إنتل",
+    emailLabel: "عنوان البريد الإلكتروني",
+    faqHeading: "الأسئلة الشائعة",
+    faqQuestionOne: "ما هي استراتيجية RISE الخاصة بشركة إنتل؟",
+    faqAnswerOne: "مبادرة إنتل المسؤولة والشاملة والمستدامة والتمكينية.",
+    faqQuestionTwo: "ما هو هدف إنتل الصافي الصفري؟",
+    faqAnswerTwo: "تهدف إنتل إلى تحقيق انبعاثات غازات دفيئة صافية صفراً بحلول عام 2040.",
+    introText: "تواصل إنتل الابتكار من خلال التكنولوجيا المستدامة.",
+    environmentText: "مبادرات الطاقة المتجددة والحفاظ على الماء.",
+    communityText: "دعم المجتمعات من خلال ممارسات الأعمال المسؤولة.",
+    buttonText: "تعلم أكثر",
+    footerText: "© 2026 مشروع إنتل لترجمة الاستدامة",
+    cards: [
+      { year: "1968", heading: "تأسست إنتل", text: "أعاد روبرت نويس وغوردون مور تسمية الشركة المنشأة حديثاً NM Electronics إلى إنتل، ووضعوا الأسس لعقود من الابتكار التكنولوجي." },
+      { year: "1971", heading: "أول معالج دقيق", text: "تقدّم إنتل بالمعالج 4004، أول معالج دقيق تجاري في العالم، مما أشعل ثورة المعالجات الدقيقة وفتح الباب لمستقبل الحوسبة." },
+      { year: "1978", heading: "معالج 8086", text: "إطلاق معالج 8086، الذي أسس بنية x86 التي تقود أعداداً هائلة من أجهزة الكمبيوتر والخوادم في العصر الحديث." },
+      { year: "1985", heading: "معالج 386", text: "تقدم إنتل بمعالج 386 القائم على بنية 32 بت، مما فتح حقبة جديدة من الأداء والتعددية لأجهزة الكمبيوتر الشخصية." },
+      { year: "2006", heading: "ذروة انبعاثات غازات الدفيئة", text: "يمثل هذا العام أعلى مستوى لانبعاثات غازات الدفيئة التشغيلية لشركة إنتل. وخلال السنوات اللاحقة، تستثمر إنتل بكثافة في تقليل المواد الكيميائية، والطاقة المتجددة، والتصنيع الموفّر للطاقة لعكس هذه الاتجاه." },
+      { year: "2020", heading: "استراتيجية RISE", text: "تطلق إنتل استراتيجية RISE (المسؤولية، الشمول، الاستدامة، التمكين) وأهداف عام 2030، بهدف الدفع بالتقدم على مستوى الصناعة في مجال العمل المناخي، وإدارة المياه، والحد من النفايات." },
+      { year: "2022", heading: "صافي الصفر بحلول 2040", text: "تعلن إنتل عن التزامها بتحقيق انبعاثات غازات الدفيئة صفرية صافية (النطاق 1 و2) عبر عملياتها العالمية بحلول عام 2040، استناداً إلى سنوات من المبادرات البيئية." },
+      { year: "2023", heading: "الكهرباء المتجددة", text: "تحقق الشركة استخداماً للكهرباء المتجددة بنسبة 99% في جميع أنحاء العالم، مما يساعد على خفض الانبعاثات الكربونية بشكل كبير ودفع التقدم نحو أهداف إنتل طويلة المدى للاستدامة." },
+      { year: "2024", heading: "قمة الاستدامة", text: "تستضيف إنتل أول قمة للاستدامة، لتجمع الموردين والمسؤولين الحكوميين وقادة الصناعة للتعاون على تصنيع أشباه الموصلات المستدامة من الجيل التالي." }
+    ]
+  }
+};
+
+function applyLanguage(lang) {
+  const t = translations[lang] || translations.en;
+
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.documentElement.lang = lang;
+
+  mainTitle.textContent = t.mainTitle;
+  subhead.textContent = t.subhead;
+
+  innovationHeading.innerHTML = `<i class="bi bi-cpu"></i> ${t.innovationHeading}`;
+  environmentHeading.innerHTML = `<i class="bi bi-globe"></i> ${t.environmentHeading}`;
+  communityHeading.innerHTML = `<i class="bi bi-people"></i> ${t.communityHeading}`;
+
+  languageLabel.textContent = t.languageLabel;
+  languageOptionEn.textContent = t.languageOptionEn;
+  languageOptionAr.textContent = t.languageOptionAr;
+  subscribeHeading.textContent = t.subscribeHeading;
+  emailLabel.textContent = t.emailLabel;
+  faqHeading.textContent = t.faqHeading;
+  faqQuestionOne.textContent = t.faqQuestionOne;
+  faqAnswerOne.textContent = t.faqAnswerOne;
+  faqQuestionTwo.textContent = t.faqQuestionTwo;
+  faqAnswerTwo.textContent = t.faqAnswerTwo;
+
+  introText.textContent = t.introText;
+  environmentText.textContent = t.environmentText;
+  communityText.textContent = t.communityText;
+  footerText.textContent = t.footerText;
+
+  [btn1, btn2, btn3].forEach((button) => {
+    button.textContent = t.buttonText;
+  });
+
+  timelineCards.forEach((card, index) => {
+    const content = card.querySelector(".card-content");
+    const item = t.cards[index];
+
+    if (content && item) {
+      content.querySelector("h2").textContent = item.year;
+      content.querySelector("h3").textContent = item.heading;
+      content.querySelector("p").textContent = item.text;
+      card.querySelector(".card-year").textContent = item.year;
     }
+  });
+}
 
+document.addEventListener("DOMContentLoaded", function () {
+  footerText = document.querySelector("footer p");
+
+  languageSelect.addEventListener("change", function () {
+    applyLanguage(this.value);
+  });
+
+  applyLanguage(languageSelect.value);
 });
 </script>
 
